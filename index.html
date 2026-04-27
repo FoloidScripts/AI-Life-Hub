@@ -12,11 +12,11 @@ margin:0;
 }
 header{
 background:#00bcd4;
-padding:20px;
-font-size:30px;
+padding:25px;
+font-size:34px;
 font-weight:bold;
 }
-.card{
+section, .card, .tool{
 background:#222;
 margin:20px;
 padding:20px;
@@ -31,13 +31,6 @@ border-radius:8px;
 cursor:pointer;
 margin:5px;
 }
-.tool{
-display:none;
-background:#333;
-padding:20px;
-margin:20px;
-border-radius:12px;
-}
 input, textarea, select{
 width:80%;
 padding:10px;
@@ -45,11 +38,54 @@ margin:10px;
 border-radius:8px;
 border:none;
 }
+ul{
+text-align:left;
+display:inline-block;
+}
+.tool{
+display:none;
+background:#333;
+}
 </style>
 </head>
 <body>
 
 <header>AI Life Hub</header>
+
+<section>
+<h2>Project Purpose</h2>
+<p>
+AI Life Hub is a productivity website designed to help users stay organized,
+motivated, and efficient using multiple AI-powered tools. The website combines
+scheduling, task management, writing assistance, mood tracking, and study support
+into one easy-to-use platform. Its purpose is to improve daily productivity while
+reducing stress.
+</p>
+</section>
+
+<section>
+<h2>AI Employees Used in Development</h2>
+<ul>
+<li><b>AI Web Developer:</b> Created the HTML, CSS, and JavaScript structure.</li>
+<li><b>AI UX Designer:</b> Designed a clean and user-friendly layout.</li>
+<li><b>AI Productivity Assistant:</b> Built scheduling and task management features.</li>
+<li><b>AI Writing Assistant:</b> Added text tools for emails, notes, and assignments.</li>
+<li><b>AI Wellness Coach:</b> Added mood tracking and motivation tools.</li>
+<li><b>AI Debugger:</b> Reviewed code and fixed errors.</li>
+</ul>
+</section>
+
+<section>
+<h2>Main Features</h2>
+<ul>
+<li><b>Smart Planner:</b> Create tasks, schedules, and deadlines.</li>
+<li><b>AI Writing Helper:</b> Generate emails, essays, notes, and summaries.</li>
+<li><b>Study Mode:</b> Use flashcards, quizzes, and focus tools.</li>
+<li><b>Mood Tracker:</b> Track daily mood and receive motivation.</li>
+<li><b>Idea Generator:</b> Create business, content, or project ideas.</li>
+<li><b>Simple Dashboard:</b> Easy navigation with a modern design.</li>
+</ul>
+</section>
 
 <div class="card">
 <h2>Smart Planner</h2>
@@ -69,24 +105,27 @@ border:none;
 <button onclick="openTool('mood')">Open Mood Tracker</button>
 </div>
 
-<!-- Planner -->
-<div id="planner" class="tool">
+<div class="card">
+<h2>Idea Generator</h2>
+<p>Generate project, business, and content ideas.</p>
+<button onclick="openTool('ideas')">Open Idea Generator</button>
+</div>
+
+<div class="tool" id="planner">
 <h2>Smart Planner</h2>
-<input type="text" id="taskInput" placeholder="Enter task">
+<input type="text" id="taskInput" placeholder="Enter a task">
 <button onclick="addTask()">Add Task</button>
 <ul id="taskList"></ul>
 </div>
 
-<!-- Writing Tool -->
-<div id="writer" class="tool">
+<div class="tool" id="writer">
 <h2>AI Writing Helper</h2>
-<input type="text" id="topic" placeholder="Enter topic">
-<button onclick="generateWriting()">Generate</button>
+<input type="text" id="topic" placeholder="Enter a writing topic">
+<button onclick="generateWriting()">Generate Writing</button>
 <p id="writingResult"></p>
 </div>
 
-<!-- Mood Tracker -->
-<div id="mood" class="tool">
+<div class="tool" id="mood">
 <h2>Mood Tracker</h2>
 <select id="moodSelect">
 <option>Happy</option>
@@ -99,29 +138,37 @@ border:none;
 <p id="moodResult"></p>
 </div>
 
+<div class="tool" id="ideas">
+<h2>Idea Generator</h2>
+<input type="text" id="ideaTopic" placeholder="Enter a topic">
+<button onclick="generateIdea()">Generate Idea</button>
+<p id="ideaResult"></p>
+</div>
+
 <script>
 function openTool(toolId){
 document.getElementById("planner").style.display="none";
 document.getElementById("writer").style.display="none";
 document.getElementById("mood").style.display="none";
-
+document.getElementById("ideas").style.display="none";
 document.getElementById(toolId).style.display="block";
 }
 
 function addTask(){
 let task = document.getElementById("taskInput").value;
-if(task!=""){
+if(task !== ""){
 let li = document.createElement("li");
 li.innerText = task;
 document.getElementById("taskList").appendChild(li);
-document.getElementById("taskInput").value="";
+document.getElementById("taskInput").value = "";
 }
 }
 
 function generateWriting(){
 let topic = document.getElementById("topic").value;
 document.getElementById("writingResult").innerText =
-"AI Generated Writing: This is a helpful paragraph about " + topic + ". It can be expanded for essays, emails, or notes.";
+"AI Generated Writing: Here is a helpful paragraph about " + topic +
+". This can be used for notes, emails, essays, or assignments.";
 }
 
 function saveMood(){
@@ -129,13 +176,20 @@ let mood = document.getElementById("moodSelect").value;
 let message = "";
 
 if(mood=="Happy") message="Keep the positive energy going!";
-if(mood=="Motivated") message="Great time to complete goals!";
-if(mood=="Stressed") message="Take a break and breathe.";
-if(mood=="Tired") message="Rest and recharge.";
+if(mood=="Motivated") message="Great time to complete your goals!";
+if(mood=="Stressed") message="Take a short break and breathe.";
+if(mood=="Tired") message="Rest, recharge, and come back stronger.";
 if(mood=="Excited") message="Use that energy productively!";
 
 document.getElementById("moodResult").innerText =
 "Today's Mood: " + mood + " - " + message;
+}
+
+function generateIdea(){
+let topic = document.getElementById("ideaTopic").value;
+document.getElementById("ideaResult").innerText =
+"AI Idea: Create a project about " + topic +
+" that helps users save time, stay organized, and solve problems creatively.";
 }
 </script>
 
