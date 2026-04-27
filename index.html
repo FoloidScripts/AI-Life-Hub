@@ -29,6 +29,21 @@ border:none;
 color:white;
 border-radius:8px;
 cursor:pointer;
+margin:5px;
+}
+.tool{
+display:none;
+background:#333;
+padding:20px;
+margin:20px;
+border-radius:12px;
+}
+input, textarea, select{
+width:80%;
+padding:10px;
+margin:10px;
+border-radius:8px;
+border:none;
 }
 </style>
 </head>
@@ -39,20 +54,90 @@ cursor:pointer;
 <div class="card">
 <h2>Smart Planner</h2>
 <p>Organize your day instantly.</p>
-<button onclick="alert('Planner Opened')">Open</button>
+<button onclick="openTool('planner')">Open Planner</button>
 </div>
 
 <div class="card">
 <h2>AI Writing Helper</h2>
 <p>Create essays, notes, and emails.</p>
-<button onclick="alert('Writing Tool Opened')">Open</button>
+<button onclick="openTool('writer')">Open Writing Tool</button>
 </div>
 
 <div class="card">
 <h2>Mood Tracker</h2>
 <p>Track emotions and stay motivated.</p>
-<button onclick="alert('Mood Tracker Opened')">Open</button>
+<button onclick="openTool('mood')">Open Mood Tracker</button>
 </div>
+
+<!-- Planner -->
+<div id="planner" class="tool">
+<h2>Smart Planner</h2>
+<input type="text" id="taskInput" placeholder="Enter task">
+<button onclick="addTask()">Add Task</button>
+<ul id="taskList"></ul>
+</div>
+
+<!-- Writing Tool -->
+<div id="writer" class="tool">
+<h2>AI Writing Helper</h2>
+<input type="text" id="topic" placeholder="Enter topic">
+<button onclick="generateWriting()">Generate</button>
+<p id="writingResult"></p>
+</div>
+
+<!-- Mood Tracker -->
+<div id="mood" class="tool">
+<h2>Mood Tracker</h2>
+<select id="moodSelect">
+<option>Happy</option>
+<option>Motivated</option>
+<option>Stressed</option>
+<option>Tired</option>
+<option>Excited</option>
+</select>
+<button onclick="saveMood()">Save Mood</button>
+<p id="moodResult"></p>
+</div>
+
+<script>
+function openTool(toolId){
+document.getElementById("planner").style.display="none";
+document.getElementById("writer").style.display="none";
+document.getElementById("mood").style.display="none";
+
+document.getElementById(toolId).style.display="block";
+}
+
+function addTask(){
+let task = document.getElementById("taskInput").value;
+if(task!=""){
+let li = document.createElement("li");
+li.innerText = task;
+document.getElementById("taskList").appendChild(li);
+document.getElementById("taskInput").value="";
+}
+}
+
+function generateWriting(){
+let topic = document.getElementById("topic").value;
+document.getElementById("writingResult").innerText =
+"AI Generated Writing: This is a helpful paragraph about " + topic + ". It can be expanded for essays, emails, or notes.";
+}
+
+function saveMood(){
+let mood = document.getElementById("moodSelect").value;
+let message = "";
+
+if(mood=="Happy") message="Keep the positive energy going!";
+if(mood=="Motivated") message="Great time to complete goals!";
+if(mood=="Stressed") message="Take a break and breathe.";
+if(mood=="Tired") message="Rest and recharge.";
+if(mood=="Excited") message="Use that energy productively!";
+
+document.getElementById("moodResult").innerText =
+"Today's Mood: " + mood + " - " + message;
+}
+</script>
 
 </body>
 </html>
